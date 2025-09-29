@@ -1,0 +1,19 @@
+services:
+  rtmpserver:
+    container_name: "rtmpserver"
+    image: rtmpserver:v1
+    ports:
+      - 24242:4242 # API
+      - 28080:8080 # HTTP
+      - 21935:1935 # RTMP
+    volumes:
+      - type: bind
+        source: ./config.json
+        target: /etc/rtmpserver/config.json
+    environment:
+      ENTRYLABEL: RTMPServer
+      TZ: Asia/Kolkata
+    # Uncomment and set shm_size at ~95% of total available RAM
+    shm_size: '8gb'
+    restart:
+      always

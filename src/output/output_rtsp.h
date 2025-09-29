@@ -1,0 +1,47 @@
+#pragma once
+
+#include "output.h"
+#include <mist/h264.h>
+#include <mist/http_parser.h>
+#include <mist/rtp.h>
+#include <mist/sdp.h>
+#include <mist/socket.h>
+#include <mist/url.h>
+
+namespace Mist{
+  class OutRTSP : public Output{
+  public:
+    OutRTSP(Socket::Connection &myConn);
+    static void init(Util::Config *cfg);
+    void sendNext();
+    void onRequest();
+    void requestHandler();
+    bool onFinish();
+    void incomingPacket(const DTSC::Packet &pkt);
+    void incomingRTP(const uint64_t track, const RTP::Packet &p);
+
+  private:
+    SDP::State sdpState;
+    HTTP::Parser HTTP_R, HTTP_S;
+    std::string source;
+    uint64_t lastTimeSync;
+    bool setPacketOffset;
+    int64_t packetOffset;
+    bool expectTCP;
+    bool checkPort;
+    std::string generateSDP(std::string reqUrl);
+    bool handleTCP();
+    void handleUDP();
+    void setSyncMs(std::string type);
+    bool aacTrackAdded;
+    bool encoderChecked;
+    uint64_t videoMilliSyncMs;
+    uint64_t audioMilliSyncMs;
+    uint32_t videoFirstRtpMs;
+    uint32_t audioFirstRtpMs;
+    uint64_t prevVGetTime;
+    uint64_t prevAGetTime;
+  };
+}// namespace Mist
+
+typedef Mist::OutRTSP mistOut;

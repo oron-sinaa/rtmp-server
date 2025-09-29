@@ -1,0 +1,48 @@
+{
+      "account":{
+        "admin":{
+          "password":"21232f297a57a5a743894a0e4a801fc3"
+        }
+      },
+      "autopushes":[],
+      "config":{
+        "accesslog":"LOG",
+        "controller":{
+          "interface":null,
+          "port":null,
+          "username":null
+        },
+        "defaultStream":null,
+        "prometheus":"",
+        "protocols":[
+          {
+            "connector":"HLS"
+          }, {
+            "connector":"RTMP"
+          }, {
+            "connector":"CMAF"
+          }, {
+            "connector":"HTTP"
+          }, {
+            "connector":"JPG"
+          }
+        ],
+        "sessionInputMode":13,
+        "sessionOutputMode":13,
+        "sessionStreamInfoMode":3,
+        "sessionUnspecifiedMode":0,
+        "sessionViewerMode":13,
+        "tknMode":10,
+        "triggers":null,
+        "trustedproxy":[]
+      },
+      "push_settings":null,
+      "streams":{
+        "default.stream":{
+          "disable_audio":false,
+          "name":"default.stream",
+          "source":"push://"
+        }
+      },
+      "ui_settings":null
+    }
